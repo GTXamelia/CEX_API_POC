@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "pqeA+haWoxmb2n6XVqRv6QGrVFxYF3vh1NfAAPA/5To6nMLPNfuXzm+zvUlcu+zs2Abg0R+xg6oGjfe9PgGbJg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lego\\Downloads\\Test\\Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lego\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
