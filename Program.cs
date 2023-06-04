@@ -11,6 +11,12 @@ class Program
         var superCatagories = new SuperCatagories();
         var superCats = await superCatagories.GetSuperCatsAsync();
 
+        if (null == superCats)
+        {
+            Console.WriteLine("No superCats found!");
+            return;
+        }
+
         foreach (var superCat in superCats)
         {
             Console.WriteLine($"{superCat.SuperCatId}: {superCat.SuperCatFriendlyName}");

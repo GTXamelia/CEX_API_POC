@@ -5,6 +5,11 @@ public class Response<T>
 {
     [JsonProperty("response")]
     public ResponseData<T> Data { get; set; }
+
+    public Response()
+    {
+        Data = new ResponseData<T>();
+    }
 }
 
 public class ResponseData<T>
@@ -13,10 +18,16 @@ public class ResponseData<T>
     public string Ack { get; set; }
 
     [JsonProperty("data")]
-    public T Data { get; set; }
+    public T? Data { get; set; }
 
     [JsonProperty("error")]
     public Error Error { get; set; }
+
+    public ResponseData()
+    {
+        Ack = string.Empty;
+        Error = new Error();
+    }
 }
 
 public class Error
@@ -29,6 +40,13 @@ public class Error
 
     [JsonProperty("moreInfo")]
     public List<object> MoreInfo { get; set; }
+
+    public Error()
+    {
+        Code = string.Empty;
+        InternalMessage = string.Empty;
+        MoreInfo = new List<object>();
+    }
 }
 
 public abstract class BaseApi<T>
