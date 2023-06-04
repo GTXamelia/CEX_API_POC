@@ -36,7 +36,7 @@ public abstract class BaseApi<T>
     protected async Task<string> GetJsonAsync(string endpoint)
     {
         var url = Endpoints.BASE_URL + endpoint;
-        
+
         using (var client = new HttpClient())
         {
             var response = await client.GetAsync(url).ConfigureAwait(false);
