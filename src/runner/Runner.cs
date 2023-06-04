@@ -36,7 +36,7 @@ public class Runner
         {
             Console.WriteLine("\nEnter a superCatId:");
             searchTerm = Console.ReadLine();
-            if (superCats.Exists(sc => sc.SuperCatId.ToString() == searchTerm))
+            if (null != superCats && superCats.Exists(sc => sc.SuperCatId.ToString() == searchTerm))
             {
                 validInput = true;
                 searchTerm = superCats.Find(sc => sc.SuperCatId.ToString() == searchTerm).SuperCatFriendlyName;

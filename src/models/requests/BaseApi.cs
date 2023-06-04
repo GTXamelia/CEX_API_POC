@@ -5,11 +5,11 @@ using Microsoft.Extensions.Logging;
 public class Response<T>
 {
     [JsonProperty("response")]
-    public ResponseData<T> Data { get; set; }
+    public ResponseData<T> ResponseData { get; set; }
 
     public Response()
     {
-        Data = new ResponseData<T>();
+        ResponseData = new ResponseData<T>();
     }
 }
 
@@ -80,11 +80,12 @@ public abstract class BaseApi<T>
     {
         var json = await GetJsonAsync(endpoint).ConfigureAwait(false);
         var response = JsonConvert.DeserializeObject<Response<T>>(json);
-        if (!string.IsNullOrEmpty(response.Data.Error.Code))
+        if (!string.IsNullOrEmpty(response?.ResponseData.Error.Code))
         {
-            _logger.LogError("API error: {ErrorMessage}", response.Data.Error.InternalMessage);
-            throw new Exception($"API error: {response.Data.Error.InternalMessage}");
+            _logger.LogError("API error: {ErrorMessage}", response.ResponseData.Error.InternalMessage);
+            throw new Exception($"API error: {response.ResponseData.Error.InternalMessage}");
         }
-        return response.Data.Data;
+
+        return response.ResponseData!.Data;
     }
 }
