@@ -22,7 +22,7 @@ public static class DependencyInjection
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .WriteTo.Console()
-            .WriteTo.File("logs/myapp-.txt", rollingInterval: RollingInterval.Day)
+            .WriteTo.File("logs/CEX_POC-.txt", rollingInterval: RollingInterval.Day)
             .CreateLogger();
 
         // Add logging
