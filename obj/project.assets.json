@@ -60,9 +60,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lego\\Downloads\\Test\\Test.csproj",
-      "projectName": "Test",
-      "projectPath": "C:\\Users\\lego\\Downloads\\Test\\Test.csproj",
+      "projectUniqueName": "C:\\Users\\lego\\Downloads\\Test\\CEXPOC.csproj",
+      "projectName": "CEXPOC",
+      "projectPath": "C:\\Users\\lego\\Downloads\\Test\\CEXPOC.csproj",
       "packagesPath": "C:\\Users\\lego\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\lego\\Downloads\\Test\\obj\\",
       "projectStyle": "PackageReference",

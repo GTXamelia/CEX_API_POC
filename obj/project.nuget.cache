@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pqeA+haWoxmb2n6XVqRv6QGrVFxYF3vh1NfAAPA/5To6nMLPNfuXzm+zvUlcu+zs2Abg0R+xg6oGjfe9PgGbJg==",
+  "dgSpecHash": "mu1a+dYuKaAJ1NWbtsqqZDiUyvnlEWoIq/PJHw89ieMGA/AeRd1TlvC4wuQFpgPvSfMHS3B57OzmXKW2E0US+A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\lego\\Downloads\\Test\\Test.csproj",
+  "projectFilePath": "C:\\Users\\lego\\Downloads\\Test\\CEXPOC.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lego\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
   ],
