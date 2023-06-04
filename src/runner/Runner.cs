@@ -8,7 +8,8 @@ public class Runner
         var superCatagories = new SuperCatagories();
         var superCats = await superCatagories.GetSuperCatsAsync();
 
-        if(null == superCats){
+        if (null == superCats)
+        {
             Console.WriteLine("No superCats found!");
             return;
         }
