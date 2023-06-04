@@ -30,7 +30,7 @@ public static class DependencyInjection
         {
             builder.AddSerilog(Log.Logger);
         });
-        
+
         // Registers all classes that inherit from the BaseApi class
         var baseApiType = typeof(BaseApi<>);
         var baseApiImplementations = Assembly.GetExecutingAssembly().GetTypes()
