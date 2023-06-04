@@ -27,15 +27,18 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     
-  lint:
+  roslynator:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install StyleCop
-      run: dotnet tool install --global StyleCop.Analyzers
+    - name: Add nuget.org package source
+      run: dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 
-    - name: Run StyleCop
-      run: dotnet stylecop
+    - name: Install Roslynator
+      run: dotnet tool install -g roslynator.dotnet.cli
+
+    - name: Run Roslynator
+      run: roslynator analyze .\CEXPOC.csproj
