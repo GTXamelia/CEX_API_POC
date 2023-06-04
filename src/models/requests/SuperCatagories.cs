@@ -9,6 +9,11 @@ public class SuperCatagoriesData
 {
     [JsonProperty("superCats")]
     public List<SuperCat> SuperCats { get; set; }
+
+    public SuperCatagoriesData()
+    {
+        SuperCats = new List<SuperCat>();
+    }
 }
 
 public class SuperCat
@@ -18,6 +23,11 @@ public class SuperCat
 
     [JsonProperty("superCatFriendlyName")]
     public string SuperCatFriendlyName { get; set; }
+
+    public SuperCat()
+    {
+        SuperCatFriendlyName = string.Empty;
+    }
 }
 
 public class SuperCatagories : BaseApi<SuperCatagoriesData>
@@ -31,7 +41,6 @@ public class SuperCatagories : BaseApi<SuperCatagoriesData>
 
     public async Task<List<SuperCat>> GetSuperCatsAsync()
     {
-        var endpoint = "/supercats";
         var superCatagoriesData = await GetResponseAsync(ENDPOINT).ConfigureAwait(false);
         return superCatagoriesData.SuperCats;
     }

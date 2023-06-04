@@ -10,6 +10,11 @@ public class productLinesData
 {
     [JsonPropertyName("productLines")]
     public List<productLines> ProductLines { get; set; }
+
+    public productLinesData()
+    {
+        ProductLines = new List<productLines>();
+    }
 }
 
 public class productLines
@@ -25,6 +30,11 @@ public class productLines
 
     [JsonPropertyName("totalCategories")]
     public int TotalBoxes { get; set; }
+
+    public productLines()
+    {
+        ProductLineName = string.Empty;
+    }
 }
 
 public class ProductLines : BaseApi<productLinesData>
