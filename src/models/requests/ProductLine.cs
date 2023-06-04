@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using models;
+using Microsoft.Extensions.Logging;
 
 public class CatagoriesResponse : Response<productLinesData>
 {
@@ -41,7 +42,7 @@ public class ProductLines : BaseApi<productLinesData>
 {
     private string ENDPOINT;
 
-    public ProductLines() : base()
+    public ProductLines(ILogger<ProductLines> logger) : base(logger)
     {
         this.ENDPOINT = Endpoints.ProductLines.ENDPOINT;
     }
