@@ -1,12 +1,23 @@
-using System;
-using System.Threading.Tasks;
+// Purpose: Contains the Runner class. This class is used to run the program.
+using Microsoft.Extensions.Logging;
 
 public class Runner
 {
+    private readonly ILogger<Runner> _logger;
+    private readonly ProductLines _productLines;
+    private readonly SuperCatagories _superCatagories;
+
+    public Runner(ILogger<Runner> logger, ProductLines productLines, SuperCatagories superCatagories)
+    {
+        _logger = logger;
+        _productLines = productLines;
+        _superCatagories = superCatagories;
+    }
+
     public async Task Run()
     {
-        var superCatagories = new SuperCatagories();
-        var superCats = await superCatagories.GetSuperCatsAsync();
+        _logger.LogInformation("Starting the application.");
+        var superCats = await _superCatagories.GetSuperCatsAsync();
 
         if (null == superCats)
         {
@@ -38,8 +49,7 @@ public class Runner
 
         var gamingSuperCatIds = superCats.Where(sc => sc.SuperCatFriendlyName == searchTerm).Select(sc => sc.SuperCatId);
 
-        var productLines = new ProductLines();
-        var productLinesTest = await productLines.GetProductLinesAsync(gamingSuperCatIds.ToList());
+        var productLinesTest = await _productLines.GetProductLinesAsync(gamingSuperCatIds.ToList());
 
         foreach (var productLine in productLinesTest)
         {

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using models;
+using Microsoft.Extensions.Logging;
 
 public class SuperCatagoriesResponse : Response<SuperCatagoriesData>
 {
@@ -34,7 +35,7 @@ public class SuperCatagories : BaseApi<SuperCatagoriesData>
 {
     private string ENDPOINT;
 
-    public SuperCatagories() : base()
+    public SuperCatagories(ILogger<SuperCatagories> logger) : base(logger)
     {
         this.ENDPOINT = Endpoints.SuperCategories.ENDPOINT;
     }

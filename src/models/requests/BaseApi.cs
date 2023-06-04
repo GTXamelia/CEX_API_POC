@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using models;
+using Microsoft.Extensions.Logging;
 
 public class Response<T>
 {
@@ -51,6 +52,13 @@ public class Error
 
 public abstract class BaseApi<T>
 {
+    private readonly ILogger<BaseApi<T>> _logger;
+
+    protected BaseApi(ILogger<BaseApi<T>> logger)
+    {
+        _logger = logger;
+    }
+
     protected async Task<string> GetJsonAsync(string endpoint)
     {
         var url = Endpoints.BASE_URL + endpoint;
@@ -58,7 +66,11 @@ public abstract class BaseApi<T>
         using (var client = new HttpClient())
         {
             var response = await client.GetAsync(url).ConfigureAwait(false);
-            response.EnsureSuccessStatusCode();
+            if (!response.IsSuccessStatusCode)
+            {
+                _logger.LogError("API error: {StatusCode} {ReasonPhrase}", response.StatusCode, response.ReasonPhrase);
+                throw new Exception($"API error: {response.StatusCode} {response.ReasonPhrase}");
+            }
             var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return json;
         }
@@ -70,6 +82,7 @@ public abstract class BaseApi<T>
         var response = JsonConvert.DeserializeObject<Response<T>>(json);
         if (!string.IsNullOrEmpty(response.Data.Error.Code))
         {
+            _logger.LogError("API error: {ErrorMessage}", response.Data.Error.InternalMessage);
             throw new Exception($"API error: {response.Data.Error.InternalMessage}");
         }
         return response.Data.Data;

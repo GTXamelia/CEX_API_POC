@@ -30,3 +30,6 @@ _ReSharper*/
 # Ignore other files
 Thumbs.db
 Desktop.ini
+
+# Ignore log files
+logs/
