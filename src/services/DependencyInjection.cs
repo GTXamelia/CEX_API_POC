@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Reflection;
 using Amelia.CEXPOC.Api;
+using Amelia.CEXPOC.RunnerNamespace;
 
 namespace Amelia.CEXPOC.DipendencyInjection
 {

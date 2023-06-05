@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Amelia.CEXPOC.Api;
 
-namespace Amelia.CEXPOC.Runner
+namespace Amelia.CEXPOC.RunnerNamespace
 {
     public class Runner
     {
