@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Reflection;
+using Amelia.CEXPOC.Api;
 
 public static class DependencyInjection
 {

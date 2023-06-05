@@ -2,47 +2,50 @@ using Newtonsoft.Json;
 using models;
 using Microsoft.Extensions.Logging;
 
-public class SuperCatagoriesResponse : Response<SuperCatagoriesData>
+namespace Amelia.CEXPOC.Api
 {
-}
-
-public class SuperCatagoriesData
-{
-    [JsonProperty("superCats")]
-    public List<SuperCat> SuperCats { get; set; }
-
-    public SuperCatagoriesData()
+    public class SuperCatagoriesResponse : Response<SuperCatagoriesData>
     {
-        SuperCats = new List<SuperCat>();
-    }
-}
-
-public class SuperCat
-{
-    [JsonProperty("superCatId")]
-    public int SuperCatId { get; set; }
-
-    [JsonProperty("superCatFriendlyName")]
-    public string SuperCatFriendlyName { get; set; }
-
-    public SuperCat()
-    {
-        SuperCatFriendlyName = string.Empty;
-    }
-}
-
-public class SuperCatagories : BaseApi<SuperCatagoriesData>
-{
-    private string ENDPOINT;
-
-    public SuperCatagories(ILogger<SuperCatagories> logger) : base(logger)
-    {
-        this.ENDPOINT = Endpoints.SuperCategories.ENDPOINT;
     }
 
-    public async Task<List<SuperCat>> GetSuperCatsAsync()
+    public class SuperCatagoriesData
     {
-        var superCatagoriesData = await GetResponseAsync(ENDPOINT).ConfigureAwait(false);
-        return superCatagoriesData.SuperCats;
+        [JsonProperty("superCats")]
+        public List<SuperCat> SuperCats { get; set; }
+
+        public SuperCatagoriesData()
+        {
+            SuperCats = new List<SuperCat>();
+        }
+    }
+
+    public class SuperCat
+    {
+        [JsonProperty("superCatId")]
+        public int SuperCatId { get; set; }
+
+        [JsonProperty("superCatFriendlyName")]
+        public string SuperCatFriendlyName { get; set; }
+
+        public SuperCat()
+        {
+            SuperCatFriendlyName = string.Empty;
+        }
+    }
+
+    public class SuperCatagories : BaseApi<SuperCatagoriesData>
+    {
+        private string ENDPOINT;
+
+        public SuperCatagories(ILogger<SuperCatagories> logger) : base(logger)
+        {
+            this.ENDPOINT = Endpoints.SuperCategories.ENDPOINT;
+        }
+
+        public async Task<List<SuperCat>> GetSuperCatsAsync()
+        {
+            var superCatagoriesData = await GetResponseAsync(ENDPOINT).ConfigureAwait(false);
+            return superCatagoriesData.SuperCats;
+        }
     }
 }

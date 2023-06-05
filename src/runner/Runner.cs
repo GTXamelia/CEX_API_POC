@@ -1,5 +1,6 @@
 // Purpose: Contains the Runner class. This class is used to run the program.
 using Microsoft.Extensions.Logging;
+using Amelia.CEXPOC.Api;
 
 public class Runner
 {
