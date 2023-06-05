@@ -1,5 +1,5 @@
 using Newtonsoft.Json;
-using models;
+using Amelia.CEXPOC.models;
 using Microsoft.Extensions.Logging;
 
 namespace Amelia.CEXPOC.Api

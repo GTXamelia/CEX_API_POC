@@ -2,59 +2,62 @@
 using Microsoft.Extensions.Logging;
 using Amelia.CEXPOC.Api;
 
-public class Runner
+namespace Amelia.CEXPOC.Runner
 {
-    private readonly ILogger<Runner> _logger;
-    private readonly ProductLines _productLines;
-    private readonly SuperCatagories _superCatagories;
-
-    public Runner(ILogger<Runner> logger, ProductLines productLines, SuperCatagories superCatagories)
+    public class Runner
     {
-        _logger = logger;
-        _productLines = productLines;
-        _superCatagories = superCatagories;
-    }
+        private readonly ILogger<Runner> _logger;
+        private readonly ProductLines _productLines;
+        private readonly SuperCatagories _superCatagories;
 
-    public async Task Run()
-    {
-        _logger.LogInformation("Starting the application.");
-        var superCats = await _superCatagories.GetSuperCatsAsync();
-
-        if (null == superCats)
+        public Runner(ILogger<Runner> logger, ProductLines productLines, SuperCatagories superCatagories)
         {
-            Console.WriteLine("No superCats found!");
-            return;
+            _logger = logger;
+            _productLines = productLines;
+            _superCatagories = superCatagories;
         }
 
-        foreach (var superCat in superCats)
+        public async Task Run()
         {
-            Console.WriteLine($"{superCat.SuperCatId}: {superCat.SuperCatFriendlyName}");
-        }
+            _logger.LogInformation("Starting the application.");
+            var superCats = await _superCatagories.GetSuperCatsAsync();
 
-        var searchTerm = "";
-        bool validInput = false;
-        while (!validInput)
-        {
-            Console.WriteLine("\nEnter a superCatId:");
-            searchTerm = Console.ReadLine();
-            if (null != superCats && superCats.Exists(sc => sc.SuperCatId.ToString() == searchTerm))
+            if (null == superCats)
             {
-                validInput = true;
-                searchTerm = superCats.Find(sc => sc.SuperCatId.ToString() == searchTerm).SuperCatFriendlyName;
+                Console.WriteLine("No superCats found!");
+                return;
             }
-            else
+
+            foreach (var superCat in superCats)
             {
-                Console.WriteLine("Invalid input! Select valid catagoryID.");
+                Console.WriteLine($"{superCat.SuperCatId}: {superCat.SuperCatFriendlyName}");
             }
-        }
 
-        var gamingSuperCatIds = superCats.Where(sc => sc.SuperCatFriendlyName == searchTerm).Select(sc => sc.SuperCatId);
+            var searchTerm = "";
+            bool validInput = false;
+            while (!validInput)
+            {
+                Console.WriteLine("\nEnter a superCatId:");
+                searchTerm = Console.ReadLine();
+                if (null != superCats && superCats.Exists(sc => sc.SuperCatId.ToString() == searchTerm))
+                {
+                    validInput = true;
+                    searchTerm = superCats.Find(sc => sc.SuperCatId.ToString() == searchTerm).SuperCatFriendlyName;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Select valid catagoryID.");
+                }
+            }
 
-        var productLinesTest = await _productLines.GetProductLinesAsync(gamingSuperCatIds.ToList());
+            var gamingSuperCatIds = superCats.Where(sc => sc.SuperCatFriendlyName == searchTerm).Select(sc => sc.SuperCatId);
 
-        foreach (var productLine in productLinesTest)
-        {
-            Console.WriteLine($"{productLine.ProductLineId}: {productLine.ProductLineName}");
+            var productLinesTest = await _productLines.GetProductLinesAsync(gamingSuperCatIds.ToList());
+
+            foreach (var productLine in productLinesTest)
+            {
+                Console.WriteLine($"{productLine.ProductLineId}: {productLine.ProductLineName}");
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
-using models;
+using Amelia.CEXPOC.models;
 using Microsoft.Extensions.Logging;
 
 namespace Amelia.CEXPOC.Api
