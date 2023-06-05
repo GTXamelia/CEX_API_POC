@@ -1,4 +1,4 @@
-namespace models
+namespace Amelia.CEXPOC.models
 {
     public static class Endpoints
     {

@@ -2,43 +2,48 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using System.Reflection;
+using Amelia.CEXPOC.Api;
+using Amelia.CEXPOC.RunnerNamespace;
 
-public static class DependencyInjection
+namespace Amelia.CEXPOC.DipendencyInjection
 {
-    public static ServiceProvider Initialize()
+    public static class DependencyInjection
     {
-        var services = new ServiceCollection();
-        LoggingSetup(services);
-
-        services.AddSingleton<Runner>();
-
-        return services.BuildServiceProvider();
-    }
-
-    // Class here to setup logging
-    private static void LoggingSetup(IServiceCollection services)
-    {
-        // Configure Serilog
-        Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Information()
-            .WriteTo.Console()
-            .WriteTo.File("logs/CEX_POC-.txt", rollingInterval: RollingInterval.Day)
-            .CreateLogger();
-
-        // Add logging
-        services.AddLogging(builder =>
+        public static ServiceProvider Initialize()
         {
-            builder.AddSerilog(Log.Logger);
-        });
+            var services = new ServiceCollection();
+            LoggingSetup(services);
 
-        // Registers all classes that inherit from the BaseApi class
-        var baseApiType = typeof(BaseApi<>);
-        var baseApiImplementations = Assembly.GetExecutingAssembly().GetTypes()
-            .Where(t => t.BaseType != null && t.BaseType.IsGenericType && t.BaseType.GetGenericTypeDefinition() == baseApiType);
-        foreach (var implementation in baseApiImplementations)
+            services.AddSingleton<Runner>();
+
+            return services.BuildServiceProvider();
+        }
+
+        // Class here to setup logging
+        private static void LoggingSetup(IServiceCollection services)
         {
-            services.AddTransient(implementation);
-            services.AddTransient(typeof(ILogger<>), typeof(Logger<>));
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .WriteTo.Console()
+                .WriteTo.File("logs/CEX_POC-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            // Add logging
+            services.AddLogging(builder =>
+            {
+                builder.AddSerilog(Log.Logger);
+            });
+
+            // Registers all classes that inherit from the BaseApi class
+            var baseApiType = typeof(BaseApi<>);
+            var baseApiImplementations = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(t => t.BaseType != null && t.BaseType.IsGenericType && t.BaseType.GetGenericTypeDefinition() == baseApiType);
+            foreach (var implementation in baseApiImplementations)
+            {
+                services.AddTransient(implementation);
+                services.AddTransient(typeof(ILogger<>), typeof(Logger<>));
+            }
         }
     }
 }

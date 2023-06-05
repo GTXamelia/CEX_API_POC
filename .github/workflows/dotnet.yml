@@ -26,3 +26,16 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
+    
+  anylyze-code:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Install Roslynator
+      run: dotnet tool install -g roslynator.dotnet.cli
+
+    - name: Run Roslynator
+      run: roslynator analyze .**/*.csproj
